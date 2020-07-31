@@ -7,7 +7,10 @@ export default function qrpage() {
         className="container-fluid d-flex justify-container-center"
         style={{ minHeight: "100vh" }}
       >
-        <h1>QR page</h1>
+          <div>
+           <h1 className='text-right'>QR page</h1>   
+          </div>
+        
       </div>
     </div>
   );

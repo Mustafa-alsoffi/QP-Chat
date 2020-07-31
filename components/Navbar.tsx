@@ -7,7 +7,7 @@ import { useFetchUser } from "../utils/user";
 
 export default function Navbarr() {
     const { user, loading } = useFetchUser();
-    console.log(user);
+
   return (
     <Navbar className="navbar-dark bg-dark" expand="lg">
       <NavBrand className="p-3">QP Chat</NavBrand>

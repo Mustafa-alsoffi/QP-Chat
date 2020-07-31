@@ -16,7 +16,7 @@ export default function Home() {
             bulk of the card's content.
           </p>
         </div>
-        <Link href="/qrpage">
+        <Link href="/api/login">
           <button
             type="button"
             className="btn btn-primary m-1"
@@ -25,7 +25,7 @@ export default function Home() {
             Login
           </button>
         </Link>
-        <Link href="/qrpage">
+        <Link href="/api/signUp">
           <button
             type="button"
             className="btn btn-outline-primary m-1"

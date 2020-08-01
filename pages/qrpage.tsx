@@ -1,5 +1,5 @@
 import React from "react";
-
+import QRCode from 'qrcode';
 export default function qrpage() {
   return (
     <div>

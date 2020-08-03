@@ -8,7 +8,6 @@ export default async function login(req, res) {
           }
     });
   } catch (error) {
-    console.log('Here is your error buddy!')
     console.error(error);
     res.status(error.status || 500).end(error.message);
   }

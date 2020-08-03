@@ -15,7 +15,7 @@ export default function Navbarr() {
 
       <Form className="form-inline">
       { user && !loading ? 
-              (<Link href="/api/logout"><Button className='btn-danger mr-sm-5'>Logout</Button></Link>)
+              (<Link href="/api/logout"><Button className='btn-danger mr-1'>Logout</Button></Link>)
               :
               null}
       </Form>

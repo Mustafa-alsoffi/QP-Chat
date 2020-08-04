@@ -37,7 +37,7 @@ export default function QRCard() {
 
     QRCode.toCanvas(
       document.getElementById("canvas"),
-      "sample text",
+      "https://getbootstrap.com",
       { width: setViewSize() },
       function (error) {
         if (error) console.error(error);

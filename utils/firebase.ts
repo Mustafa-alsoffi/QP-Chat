@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase';
  // Your web app's Firebase configuration
  var firebaseConfig = {
     apiKey: "AIzaSyDmjXv0oWrPqAIlwvoeu0NcCEtyyR69xT4",
@@ -11,5 +11,13 @@ import * as firebase from 'firebase';
     measurementId: "G-HE37LFPEYT"
   };
   // Initialize Firebase
-  export default firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+    const Firebase = firebase;
+  // firebase.analytics();
+
+export default Firebase;
+
+  export const database = firebase.database();
+  export const auth = firebase.auth();

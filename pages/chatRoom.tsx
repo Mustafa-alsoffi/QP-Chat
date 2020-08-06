@@ -1,8 +1,16 @@
 import React, { useEffect } from "react";
 import Firebase from "../utils/firebase";
 import Head from "next/head";
+import { useFetchUser } from "../utils/user";
 
 export default function ChatRoom() {
+
+    const { user, loading } = useFetchUser();
+    const auth0User = user;
+    useEffect(() => {
+   console.log(auth0User);
+    }, [auth0User])
+    
   Firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       // User is signed in.
@@ -10,9 +18,9 @@ export default function ChatRoom() {
       var isAnonymous = user.isAnonymous;
       var uid = user.uid;
       console.log("this your UID " + user.displayName);
-      if (user) {
+      if (user && auth0User && !loading) {
     
-        initChat(uid, "isAnonymous");
+        initChat(uid, auth0User.nickname.replace(/[^A-Z0-9]+/ig, "_"));
       }
     } else {
       // User is signed out.
@@ -30,7 +38,7 @@ export default function ChatRoom() {
     );
 
     // Set the Firechat user
-    chat.setUser(uid, "Anonymous" + uid.substr(10, 8));
+    chat.setUser(uid, username);
   };
   return (
     <>

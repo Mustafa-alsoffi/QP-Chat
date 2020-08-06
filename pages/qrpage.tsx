@@ -8,12 +8,15 @@ import Firebase  from '../utils/firebase';
 export default function qrpage() {
   
   const { user, loading } = useFetchUser();
+  console.log(user);
+  
   useEffect(() => {
-    Firebase.auth().signInAnonymously().catch(function(error) {
+    
+    firebase.auth().createUserWithEmailAndPassword(user.name, password).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-   
+      // ...
     });
     
 

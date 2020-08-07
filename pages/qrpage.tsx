@@ -12,13 +12,25 @@ export default function qrpage() {
   
   useEffect(() => {
     
-    firebase.auth().createUserWithEmailAndPassword(user.name, password).catch(function(error) {
+    Firebase.auth().signInAnonymously().catch(function(error) {
       // Handle Errors here.
-      var errorCode = error.code;
+      // var errorCode = error.code;
       var errorMessage = error.message;
+      console.log(errorMessage);
+
       // ...
     });
-    
+    return ()=> {
+      Firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+        console.log('Firebase Sign-out successful.');
+        
+      }).catch(function(error) {
+        // An error happened.
+        console.log(error.message);
+        
+      });
+    }
 
 
   }, [])

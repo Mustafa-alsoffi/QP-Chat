@@ -8,6 +8,9 @@ export default function ChatRoom() {
     const { user, loading } = useFetchUser();
     const auth0User = user;
     useEffect(() => {
+        
+
+          
    console.log(auth0User);
     }, [auth0User])
     
@@ -15,15 +18,17 @@ export default function ChatRoom() {
     if (user) {
       // User is signed in.
 
-      var isAnonymous = user.isAnonymous;
+     
       var uid = user.uid;
-      console.log("this your UID " + user.displayName);
       if (user && auth0User && !loading) {
-    
+        console.log('This another UID: ' + uid);
+        
         initChat(uid, auth0User.nickname.replace(/[^A-Z0-9]+/ig, "_"));
       }
     } else {
       // User is signed out.
+      console.log('onAuthStateChanged: user is signed out');
+      
     }
   });
 

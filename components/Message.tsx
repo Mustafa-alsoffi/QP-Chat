@@ -23,7 +23,7 @@ const Message = ({ message: { text, user }, name }) => {
               <div className={styles.messageBox + " " + styles.backgroundLight}>
                 {/* <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p> */}
               </div>
-              <p className={styles.sentText + "pl-10"}>{user}</p>
+              <p className={styles.sentText + " pl-10"}>{user}</p>
             </div>
           )
     );

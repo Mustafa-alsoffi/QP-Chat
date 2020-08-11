@@ -3,6 +3,7 @@ import Firebase from "../utils/firebase";
 import Head from "next/head";
 
 import Chat from '../components/Chat'
+import styles from '../styles/ChatRoom.module.css'
 export default function ChatRoom() {
   Firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -34,7 +35,7 @@ export default function ChatRoom() {
     chat.setUser(uid, "Anonymous" + uid.substr(10, 8));
   };
   return (
-    <>
+    <div className={styles["container-fluid"]} style={{minHeight: '100vh', margin: "0px", backgroundColor: 'red'}}>
       <Head>
         {/* jQuery  */}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -49,15 +50,10 @@ export default function ChatRoom() {
         />
         <script src="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.js"></script>
       </Head>
-      <div className="container-fluid d-flex justify-content-center" style={{minHeight: '100vh'}}>
+      
         <Chat />
-        {/* <div className="card my-auto" style={{minWidth: '50%', minHeight: '50vh'}}>
-          <div>
 
-          </div>
-
-        </div> */}
-      </div>
-    </>
+      
+    </div >
   );
 }

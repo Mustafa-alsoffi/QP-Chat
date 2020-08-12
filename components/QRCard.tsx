@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import Head from "next/head";
 import QRCode from "qrcode";
+import Firebase from "../utils/firebase";
+
 import {
   Form,
   FormGroup,
@@ -12,7 +16,7 @@ import {
   Overlay,
 } from "react-bootstrap";
 
-export default function QRCard() {
+export default function QRCard({ fRoomId }) {
   const [show, setShow] = useState(false);
   if (show) {
     setTimeout(function () {
@@ -23,15 +27,17 @@ export default function QRCard() {
   const [width, setWidth] = useState(global.innerWidth);
   const breakpoint = 620;
 
+  //Listen to the viewport width value
   useEffect(function mount() {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
-
 
     return function unMount() {
       window.removeEventListener("resize", handleWindowResize);
     };
   });
+
+  //Create QR canvas and adjusts its width based on viewport
   useEffect(() => {
     const setViewSize = () => (width > breakpoint ? 350 : 300);
 
@@ -88,6 +94,16 @@ export default function QRCard() {
               >
                 Copy
               </Button>
+            </Col>
+            <Col xs={1}>
+              <Link
+                href={{
+                  pathname: "/chatRoom",
+                  query: { roomID: fRoomId },
+                }}
+              >
+                <Button>Test</Button>
+              </Link>
             </Col>
           </FormGroup>
         </Form>

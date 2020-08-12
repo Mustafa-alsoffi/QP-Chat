@@ -1,5 +1,4 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import Navbarr from "../components/Navbar";
 import { useFetchUser } from "../utils/user";
@@ -7,6 +6,7 @@ export default function Home() {
   const { user, loading } = useFetchUser();
   return (
     <div>
+
       <Navbarr />
       <div
         className="container-fluid d-flex justify-content-center"
@@ -21,7 +21,7 @@ export default function Home() {
             </p>
           </div>
           {user && !loading ? (
-            <h2 className='text-center'>You're logged in!</h2>
+            <h2 className="text-center">You're logged in!</h2>
           ) : (
             [
               <Link href="/api/login">

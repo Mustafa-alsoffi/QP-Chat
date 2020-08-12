@@ -1,20 +1,42 @@
 import React, { useEffect } from "react";
 import Firebase from "../utils/firebase";
 import Head from "next/head";
-
+import { useRouter } from 'next/router'
 import Chat from '../components/Chat'
 import styles from '../styles/ChatRoom.module.css'
+import { useFetchUser } from "../utils/user";
 export default function ChatRoom() {
+  const router = useRouter()
+  const { user, loading } = useFetchUser();
+  const auth0User = user;
+  useEffect(() => {
+    
+    console.log(router.query['roomID']);
+        Firebase.auth().signInAnonymously().catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      
+        console.log(errorMessage);
+        
+    });
+    
+
+  }, [])
+
   Firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       // User is signed in.
 
 
       var uid = user.uid;
-      console.log("this your UID " + user.displayName);
       if (user) {
-    
-        initChat(uid, "isAnonymous");
+        if (auth0User && !loading) {
+          initChat(uid, auth0User.nickname);
+        } else {
+          initChat(uid, "Anonymous");
+        }
+        
       }
     } else {
       // User is signed out.
@@ -24,15 +46,9 @@ export default function ChatRoom() {
   const initChat = (uid, username) => {
     // Get a Firebase Database ref
     var chatRef = Firebase.database().ref("chat");
+    const fireChat = new Firechat(chatRef);
 
-    // Create a Firechat instance
-    var chat = new FirechatUI(
-      chatRef,
-      document.getElementById("firechat-wrapper")
-    );
-
-    // Set the Firechat user
-    chat.setUser(uid, "Anonymous" + uid.substr(10, 8));
+    fireChat.setUser(uid, username + uid.substr(10, 8));
   };
   return (
     <div className={styles["container-fluid"]} style={{minHeight: '100vh', margin: "0px", backgroundColor: 'red'}}>

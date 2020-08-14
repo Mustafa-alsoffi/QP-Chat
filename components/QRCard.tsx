@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Head from "next/head";
 import QRCode from "qrcode";
 import Firebase from "../utils/firebase";
 
@@ -16,7 +15,9 @@ import {
   Overlay,
 } from "react-bootstrap";
 
-export default function QRCard({ fRoomId }) {
+export default function QRCard() {
+
+  const [roomId, setRoomId] = useState('')
   const [show, setShow] = useState(false);
   if (show) {
     setTimeout(function () {
@@ -26,9 +27,26 @@ export default function QRCard({ fRoomId }) {
 
   const [width, setWidth] = useState(global.innerWidth);
   const breakpoint = 620;
+  //Create Chat room using Firechat
+  useEffect(() => {
+        console.log('I am here: ' + roomId);
+    var chatRef = Firebase.database().ref("chat");
+const fireChat = new Firechat(chatRef);
+fireChat.createRoom(
+  "New room",
+  "Public",
+  (roomId) => {
+    setRoomId(roomId);
+    console.log(roomId);
+    
+  }
+)
+}, []);
 
   //Listen to the viewport width value
   useEffect(function mount() {
+
+    
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
 
@@ -43,7 +61,7 @@ export default function QRCard({ fRoomId }) {
 
     QRCode.toCanvas(
       document.getElementById("canvas"),
-      "https://getbootstrap.com",
+      "http://localhost:3000/chatRoom?roomId=" + roomId,
       { width: setViewSize() },
       function (error) {
         if (error) console.error(error);
@@ -78,10 +96,12 @@ export default function QRCard({ fRoomId }) {
             <Col xs={6}>
               <FormControl
                 ref={textAreaRef}
+                type='url'
                 plaintext
                 readOnly
-                defaultValue=" A link here "
+                defaultValue={"http://localhost:3000/chatRoom?roomId=" + roomId}
               />
+
             </Col>
 
             <Col xs={1}>
@@ -99,7 +119,7 @@ export default function QRCard({ fRoomId }) {
               <Link
                 href={{
                   pathname: "/chatRoom",
-                  query: { roomID: fRoomId },
+                  query: { roomID: roomId },
                 }}
               >
                 <Button>Test</Button>

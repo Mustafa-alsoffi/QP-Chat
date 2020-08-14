@@ -1,4 +1,4 @@
-import Head from "next/head";
+
 import Link from "next/link";
 import Navbarr from "../components/Navbar";
 import { useFetchUser } from "../utils/user";

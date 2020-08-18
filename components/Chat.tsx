@@ -11,14 +11,14 @@ import Head from "next/head";
 const Chat = ({ firechat }) => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
-  const [users, setUsers] = useState("");
+  // const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
   const router = useRouter();
   const { user, loading } = useFetchUser();
   const auth0User = user;
-  const roomId = router.query["roomID"];
+  const roomId = router.query["roomId"];
 
   useEffect(() => {
     Firebase.auth()
@@ -41,19 +41,6 @@ const Chat = ({ firechat }) => {
           } else {
             initChat(uid, "Anonymous");
           }
-          firechat.getRoom(roomId, (room) => {
-            setRoom(room.name);
-          });
-          firechat.getUsersByRoom(roomId, (users) => {
-            for (var username in users) {
-              user = users[username];
-          user.disableActions = (!self._user || user.id === self._user.id);
-          user.nameTrimmed = self.trimWithEllipsis(user.name, self.maxLengthUsernameDisplay);
-          user.isMuted = (self._user && self._user.muted && self._user.muted[user.id]);
-          console.log(user);
-          
-            }
-          });
         }
       } else {
         // User is signed out.
@@ -90,19 +77,33 @@ const Chat = ({ firechat }) => {
         }
         if (fMessages) {
           setMessages(fMessages);
+          for (var i = 0; i < fMessages.length; i++) {
+            if (fMessages[i]['username'] != name && fMessages[i]['username']) {
+              setRoom(fMessages[i]['username'].trim().slice(0, 7));
+              break;
+            } else {
+              setRoom('Waiting User...');
+            }
+          }
+
         }
       }
     });
-  }, []);
+  }, [firechat]);
 
   const sendMessage = (event) => {
     event.preventDefault();
-
-    if (message && roomId && firechat) {
+    console.log('Your room id: ' + roomId);
+    console.log('Your message: ' + message);
+    
+    
+    if (message && roomId) {
+      
+      
       firechat.sendMessage(roomId, message, "default", () => setMessage(""));
-    } else {
-      console.log("Could not send");
     }
+      
+    
   };
 
   return (
@@ -126,7 +127,7 @@ const Chat = ({ firechat }) => {
           sendMessage={sendMessage}
         />
       </div>
-      <TextContainer users={users} />
+      <TextContainer users="..." />
     </div>
   );
 };

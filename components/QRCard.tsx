@@ -16,8 +16,7 @@ import {
 } from "react-bootstrap";
 
 export default function QRCard() {
-
-  const [roomId, setRoomId] = useState('')
+  const [roomId, setRoomId] = useState("");
   const [show, setShow] = useState(false);
   if (show) {
     setTimeout(function () {
@@ -29,24 +28,17 @@ export default function QRCard() {
   const breakpoint = 620;
   //Create Chat room using Firechat
   useEffect(() => {
-        console.log('I am here: ' + roomId);
+    console.log("I am here: " + roomId);
     var chatRef = Firebase.database().ref("chat");
-const fireChat = new Firechat(chatRef);
-fireChat.createRoom(
-  "New room",
-  "Public",
-  (roomId) => {
-    setRoomId(roomId);
-    console.log(roomId);
-    
-  }
-)
-}, []);
+    const fireChat = new Firechat(chatRef);
+    fireChat.createRoom("New room", "Public", (fRoomId) => {
+      setRoomId(fRoomId);
+      console.log(fRoomId);
+    });
+  }, []);
 
   //Listen to the viewport width value
   useEffect(function mount() {
-
-    
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
 
@@ -96,12 +88,11 @@ fireChat.createRoom(
             <Col xs={6}>
               <FormControl
                 ref={textAreaRef}
-                type='url'
+                type="url"
                 plaintext
                 readOnly
-                defaultValue={"http://localhost:3000/chatRoom?roomId=" + roomId}
+                value={"http://localhost:3000/chatRoom?roomId=" + roomId}
               />
-
             </Col>
 
             <Col xs={1}>
@@ -119,7 +110,7 @@ fireChat.createRoom(
               <Link
                 href={{
                   pathname: "/chatRoom",
-                  query: { roomID: roomId },
+                  query: { roomId: roomId },
                 }}
               >
                 <Button>Test</Button>

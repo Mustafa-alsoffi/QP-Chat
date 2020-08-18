@@ -1,4 +1,3 @@
-import ScrollToBottom from "react-scroll-to-bottom";
 import { useEffect } from "react";
 import Message from "./Message";
 

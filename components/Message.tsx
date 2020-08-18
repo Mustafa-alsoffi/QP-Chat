@@ -4,7 +4,7 @@ import { useFetchUser } from '../utils/user';
 const Message = ({ message: { message, username }, name }) => {
     let isSentByCurrentUser = false;
   
-    const trimmedName = name.trim().toLowerCase();
+
     const { user, loading } = useFetchUser();
 
 
@@ -23,7 +23,7 @@ const Message = ({ message: { message, username }, name }) => {
       isSentByCurrentUser
         ? (
         <div className={styles.messageContainer + " justifyEnd"}>
-            <p className="sentText pr-10">{trimmedName}</p>
+            <p className="sentText pr-2"></p>
             <div className={styles.messageBox + " " + styles.backgroundBlue}>
               <p className="messageText colorWhite">{message}</p>
             </div>
@@ -34,7 +34,7 @@ const Message = ({ message: { message, username }, name }) => {
               <div className={styles.messageBox + " " + styles.backgroundLight}>
                 <p className={styles.messageText + ' ' + styles.colorDark}>{message}</p>
               </div>
-              <p className={styles.sentText + " pl-10"}>user</p>
+              <p className={styles.sentText + " pl-2"}></p>
             </div>
           )
     );
